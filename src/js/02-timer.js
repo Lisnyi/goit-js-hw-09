@@ -62,10 +62,12 @@ function onStartButtonClick () {
 function timer () {
     timeNow = new Date()
     const deltaTime = pickedDate - timeNow.getTime()
+    if (deltaTime > 0) {        
     timerDays.textContent = addLeadingZero(convertMs(deltaTime).days)
     timerHours.textContent = addLeadingZero(convertMs(deltaTime).hours)
     timerMinutes.textContent = addLeadingZero(convertMs(deltaTime).minutes)
     timerSeconds.textContent = addLeadingZero(convertMs(deltaTime).seconds)
+    } else {startButtonRef.setAttribute('disabled', 'true')}
 }
 
 function addLeadingZero(value) {
