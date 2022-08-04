@@ -12,6 +12,7 @@ const timerSeconds = document.querySelector("span[data-seconds]")
 
 let timeNow = null
 let pickedDate = null
+let intervalId = null
 
 startButtonRef.setAttribute('disabled', 'true')
 
@@ -56,7 +57,7 @@ function convertMs(ms) {
 
 function onStartButtonClick () {
     timer()
-    setInterval (timer, 1000)
+    intervalId = setInterval (timer, 1000)
 } 
 
 function timer () {
@@ -67,7 +68,9 @@ function timer () {
     timerHours.textContent = addLeadingZero(convertMs(deltaTime).hours)
     timerMinutes.textContent = addLeadingZero(convertMs(deltaTime).minutes)
     timerSeconds.textContent = addLeadingZero(convertMs(deltaTime).seconds)
-    } else {startButtonRef.setAttribute('disabled', 'true')}
+    } else {
+        stopTimer()
+    }
 }
 
 function addLeadingZero(value) {
@@ -75,4 +78,10 @@ function addLeadingZero(value) {
         return String(value).padStart(2, '0')
     }
     return value
+}
+
+function stopTimer () {
+    clearInterval (intervalId)        
+    startButtonRef.setAttribute('disabled', 'true')
+    intervalId = null
 }
